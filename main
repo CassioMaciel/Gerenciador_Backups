@@ -1,0 +1,21 @@
+#!/bin/bash
+#find $1 -type f -exec stat --format '%Y :%y %n' "{}" \; 
+
+dir_becapear="/home/cassio"
+
+dir_destino="/media/cassio/Seagate Expansion Drive/backup incremental"
+
+usuario=cassio
+
+data=$(date +"%Y-%m-%d -- %H:%M:%S") #é usado como nome do arquivo que guarda as md5 em cada data
+
+find "$dir_becapear" -type f -user "$usuario"| grep -v "/\." | sed -r  "s@(.*)@md5sum \"\1\" >> \"$dir_destino/$data\"@g" | sh
+echo "1"
+
+find "$dir_destino" -type f | sed -r  "s@(.*)@md5sum \"\1\" >> /tmp/$$_Arquivos_Becapeados@g" | sh
+echo "2"
+
+cat "$dir_destino/$data" | grep -vE $(cat "/tmp/$$_Arquivos_Becapeados" | cut -f 1 -d " " | sort | uniq | tr '\n' "|" | sed 's/|$//') | sed -r 's@^(................................)  (.*)$@'" cp \"\2\"  \"$dir_destino/\1\"@g" | sh
+echo "3"
+
+rm "/tmp/$$_Arquivos_Becapeados"

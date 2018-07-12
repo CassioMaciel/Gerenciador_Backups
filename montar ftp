@@ -1,0 +1,3 @@
+curlftpfs grupolit.com.br:21 ~/ftp/ -o user=contato@grupolit.com.br
+
+fonte: https://www.youtube.com/watch?v=NNz3LgONtM0

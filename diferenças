@@ -1,0 +1,17 @@
+#!/bin/bash
+
+arq1="/home/cassio/hd2tera" 
+
+arq2="/home/cassio/hd500gb"
+
+#echo "cat $arq2 \\"   > /tmp/$$_exec
+
+#cat $arq1 | cut -f 1 -d ' ' | sed -r 's@(.*)@| grep -v \1 \\@g' >> /tmp/$$_exec
+
+#cat "/tmp/$$_exec" | head | sh
+
+cat "$arq2" > "/tmp/$$_exec1"
+
+cat $arq1 | cut -f 1 -d ' ' | sed -r 's@(.*)@'"cat /tmp/$$_exec1 | grep -v \1 > /tmp/$$_exec2 ; cat /tmp/$$_exec2 > /tmp/$$_exec1@g" > /tmp/$$_exec
+
+cat /tmp/$$_exec | sh

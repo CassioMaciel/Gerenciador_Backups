@@ -1,0 +1,4 @@
+find . -type f | sed -r  's/(.*)/md5sum \"\1\"/g' | sh | sort | cut -f 1 -d ' ' | uniq -d
+
+find ~/Dropbox/Fais -type f | sed -r  's/(.*)/md5sum \"\1\" >> \"\/home\/cassio\/Md5\"/g' | sh
+cat ~/Md5 | sort | cut -f 1 -d ' ' | uniq -d | sed -r 's/(.*)/grep \1 \"\/home\/cassio\/Md5\" ; echo -e \"\\n\\n\"/g'
